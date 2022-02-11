@@ -37,6 +37,8 @@ func Init(){
 			return c, nil
 		},
 	}
+
+	
 	fmt.Println("init redis success.")
 }	
 

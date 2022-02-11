@@ -18,6 +18,8 @@ import (
 type Btc struct {
 }
 
+//secp256k1
+
 type BtcResult struct {
 	Prikey  string `json:"prikey"`
 	Pubkey  string `json:"pubkey"`
@@ -130,9 +132,9 @@ func (b *Btc) WriteJosnToFile(btcresult *BtcResult) {
 	result_file_writer := bufio.NewWriter(result_file)
 	defer result_file_writer.Flush()
 
-	jsonbyte,err := json.Marshal(btcresult)
-	if err != nil{
-		fmt.Printf("marshal btc result err=%s\n",err)
+	jsonbyte, err := json.Marshal(btcresult)
+	if err != nil {
+		fmt.Printf("marshal btc result err=%s\n", err)
 	}
-	result_file_writer.Write(jsonbyte)	
+	result_file_writer.Write(jsonbyte)
 }

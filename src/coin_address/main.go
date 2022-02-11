@@ -1,42 +1,24 @@
 package main
 
 import (
-	btchelper "cryptocoin/src/coin_address/btc"
-	"encoding/hex"
-	"fmt"
+	MyEth "cryptocoin/src/coin_address/eth"
+
+	"github.com/google/martian/log"
 )
 
-
-func GetSingleBtcResult(){
-	btc := new(btchelper.Btc)
-	privateKey, publicKey, err := btc.GetBtcKeyPair()
-	if err != nil {
-		fmt.Printf("Get btc key pair error: %s\n", err)
-	}
-
-	prikey := hex.EncodeToString(privateKey.Serialize())
-	pubkey := hex.EncodeToString(publicKey.SerializeCompressed())
-
-	fmt.Printf("prikey= %s\n,pubkey= %s\n", prikey, pubkey)
-
-	chains := []string{"btc", "btctest", "btc_p2wpkh", "btctest_p2wpkh", "btc_p2sh-p2wpkh", "btctest_p2sh-p2wpkh"}
-	chain := chains[0]
-	address, err := btc.GetBitcoinAddress(publicKey, chain)
-	if err != nil {
-		fmt.Printf("Get btc address error: %s\n", err)
-	}
-	fmt.Printf("address= %s\n", address)
-	btc_reuslt:= &btchelper.BtcResult{
-		Prikey: prikey,
-		Pubkey: pubkey,
-		Address: address,
-	}
-	btc.WriteJosnToFile(btc_reuslt)
-}
-
-
 func main() {
-	for i := 0 ; i< 100 ; i++{
-		GetSingleBtcResult()
+	OneEth := new(MyEth.Eth)
+	PriKey, Pubkey, err := OneEth.GetKeyPair()
+	if err != nil {
+		log.Errorf("get eth key pair err= %s\n", err)
 	}
+	log.Infof("PriKey = %s,PubKey =%s\n", PriKey, Pubkey)
+
+	Address, err := OneEth.GetAddress(PriKey, Pubkey)
+	if err != nil {
+		log.Errorf("get address err= %s\n", err)
+	}
+
+	log.Infof("address = %s\n", Address)
+
 }

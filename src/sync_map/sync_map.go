@@ -1,0 +1,8 @@
+package syncmap
+
+
+func SyncMap(){
+	
+
+
+}
